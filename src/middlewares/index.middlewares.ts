@@ -24,16 +24,14 @@ const middlewares = (app: Application) => {
     app.use(express.urlencoded({ extended: true }));
     app.use(
         cors({
-            origin: variables.corsOrigin,
-        })
+            origin: JSON.parse(variables.corsOrigin),
+        }),
     );
     app.use(methodOverride("_method"));
     app.use((_, res, next) => {
         res.removeHeader("X-Powered-By");
         next();
     });
-
-    // app.use(jwtCheck)
 };
 
 export default middlewares;
