@@ -14,11 +14,11 @@ const messageHandler: (io: Server) => void = (io) => {
         socket.on("text-message", async (message: string) => {
             const newMess = await newTextMessage(nickname, roomIdTemp, message);
             if (newMess.success) {
-                socket.emit("new-text", nickname, message);
+                socket.to(roomIdTemp).emit("new-text", nickname, message);
             }
         });
         socket.on("img-message", (imgs: string[]) => {
-            socket.emit("new-img", nickname, imgs);
+            socket.to(roomIdTemp).emit("new-img", nickname, imgs);
         });
         socket.on("change-room", (newRoomId: string) => {
             socket.join(newRoomId);
