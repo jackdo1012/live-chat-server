@@ -77,7 +77,7 @@ class ChatController {
                 });
             }
             const ifChatExisted = await ChatModel.findOne({
-                users: [userData.userData.nickname, ...users],
+                users: {$all: [userData.userData.nickname, ...users]},
             });
             if (ifChatExisted) {
                 return res.status(400).json({
